@@ -1,0 +1,22 @@
+{
+   "type": "postgres",
+   "host": "localhost",
+   "port": 5432,
+   "username": "postgres",
+   "password": "root",
+   "database": "postgres",
+   "entities": [
+      "src/modules/**/typeorm/entity/*.ts"
+   ],
+   "migrations": [
+      "src/database/migration/*.ts"
+   ],
+   "subscribers": [
+      "src/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "src/modules/**/typeorm/entity",
+      "migrationsDir": "src/database/migration",
+      "subscribersDir": "src/subscriber"
+   }
+}
