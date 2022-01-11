@@ -13,10 +13,10 @@ const createController = new CreateUserController();
 const updateController = new UpdateUserController();
 const removeController = new RemoveUserController();
 
-userRouter.get('/',ensureAuthenticated,listController.handle);
-userRouter.get('/:id',showController.handle);
-userRouter.post('/',createController.handle);
-userRouter.put('/:id',updateController.handle);
-userRouter.delete('/:id',removeController.handle);
+userRouter.get('/',ensureAuthenticated, listController.handle);
+userRouter.get('/:id',ensureAuthenticated, showController.handle);
+userRouter.post('/',ensureAuthenticated, createController.handle);
+userRouter.put('/:id',ensureAuthenticated, updateController.handle);
+userRouter.delete('/:id',ensureAuthenticated, removeController.handle);
 
 export {userRouter}

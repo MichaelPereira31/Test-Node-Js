@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import { getCustomRepository } from "typeorm";
+import { AppError } from "../errors/AppError";
 import { UserRepository } from "../modules/user/typeorm/repository/UserRepository";
 interface IPayload{
     sub:string;
@@ -9,7 +10,7 @@ export async function ensureAuthenticated(request: Request, response: Response, 
     const authHeader = request.headers.authorization
 
     if (!authHeader) {
-        throw new Error("token missing")
+        throw new AppError("token missing",401)
     }
 
     const [, token] = authHeader.split(" ")
@@ -18,10 +19,10 @@ export async function ensureAuthenticated(request: Request, response: Response, 
         const userRepository = getCustomRepository(UserRepository)
         const user = await userRepository.findOne(user_id)
         if(!user){
-            throw new Error("user not found")
+            throw new AppError("user not found",401)
         }
         next()
     } catch {
-        throw new Error("invalid token")
+        throw new AppError("invalid token",401)
     }
 }

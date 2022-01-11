@@ -2,6 +2,7 @@ import { getCustomRepository } from "typeorm";
 import { User } from "../typeorm/entity/User";
 import { UserRepository } from "../typeorm/repository/UserRepository";
 import { hash } from 'bcryptjs'
+import { AppError } from "../../../errors/AppError";
 
 interface IRequest {
     name: string;
@@ -14,10 +15,11 @@ class CreateUserService {
     async execute({ name, username,email, password, admin = false }: IRequest): Promise<User> {
         const userRepository = getCustomRepository(UserRepository)
         
-        const userExist = await userRepository.findOne({email})
+        const emailExist = await userRepository.findOne({email})
+        const usernameExist = await userRepository.findOne({email})
         
-        if(userExist) {
-            throw new Error("Usuário cadastrado")
+        if(emailExist || usernameExist) {
+            throw new AppError("registered email or username",400)
         }
         const passwordHash = await hash(password, 8)
         

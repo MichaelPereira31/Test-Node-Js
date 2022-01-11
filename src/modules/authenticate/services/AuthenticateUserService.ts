@@ -1,6 +1,7 @@
 import { compare } from "bcryptjs"
 import { sign } from "jsonwebtoken"
 import { getCustomRepository } from "typeorm"
+import { AppError } from "../../../errors/AppError"
 import { UserRepository } from "../../user/typeorm/repository/UserRepository"
 
 interface IRequest {
@@ -21,14 +22,14 @@ class AuthenticateUserService {
         const user = await userRepository.findOne({email})
         
         if (!user) {
-            throw new Error('user not found')
+            throw new AppError('user not found')
         }
 
         //verificação de senha
         const passwordMatch = await compare(password, user.password)
         
         if (!passwordMatch) {
-            throw new Error('Email/password incorrect')
+            throw new AppError('Email/password incorrect')
         }
 
         // Gerando token
