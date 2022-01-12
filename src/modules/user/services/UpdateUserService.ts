@@ -15,7 +15,7 @@ interface IRequest {
 class UpdateUserService {
     async execute({name, username, password, email }: IRequest): Promise<User> {
         const {user_id} = request
-        console.log(user_id)
+        
         const userRepository = getCustomRepository(UserRepository)
 
         const user = await userRepository.findOne(user_id)

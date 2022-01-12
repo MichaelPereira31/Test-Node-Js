@@ -5,6 +5,9 @@ const routers = Router()
 
 routers.use('/user',userRouter)
 routers.use('/login',authenticateRouters)
+routers.get('/',()=>{
+    console.log('ok')
+})
 
 
 export {routers}

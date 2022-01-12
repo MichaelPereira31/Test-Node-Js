@@ -1,22 +1,24 @@
 {
    "type": "postgres",
-   "host": "localhost",
+   "host": "db",
    "port": 5432,
    "username": "postgres",
    "password": "root",
    "database": "postgres",
+   "synchronize": true,
+   "logging": false,
    "entities": [
       "src/modules/**/typeorm/entity/*.ts"
    ],
    "migrations": [
-      "src/database/migration/*.ts"
+      "src/database/migrations/*.ts"
    ],
    "subscribers": [
       "src/subscriber/**/*.ts"
    ],
    "cli": {
       "entitiesDir": "src/modules/**/typeorm/entity",
-      "migrationsDir": "src/database/migration",
+      "migrationsDir": "src/database/migrations",
       "subscribersDir": "src/subscriber"
    }
 }
