@@ -12,12 +12,14 @@ export async function ensureAuthenticated(request: Request, response: Response, 
     if (!authHeader) {
         throw new AppError("token missing",401)
     }
-
+    
     const [, token] = authHeader.split(" ")
+    
     try {
-        const {sub:user_id} = verify(token, "9e63d220b6e6fc6d028720ce077967d6") as IPayload
+        const {sub} = verify(token, "9e63d220b6e6fc6d028720ce077967d6") as IPayload
         const userRepository = getCustomRepository(UserRepository)
-        const user = await userRepository.findOne(user_id)
+        request.user_id = sub
+        const user = await userRepository.findOne(sub)
         if(!user){
             throw new AppError("user not found",401)
         }

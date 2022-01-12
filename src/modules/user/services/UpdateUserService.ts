@@ -3,8 +3,9 @@ import { User } from "../typeorm/entity/User";
 import { UserRepository } from "../typeorm/repository/UserRepository";
 import { hash } from 'bcryptjs'
 import { AppError } from "../../../errors/AppError";
+import { request } from "express";
 interface IRequest {
-    id: any;
+
     name: string;
     username: string;
     email: string;
@@ -12,10 +13,12 @@ interface IRequest {
 
 }
 class UpdateUserService {
-    async execute({ id, name, username, password, email }: IRequest): Promise<User> {
+    async execute({name, username, password, email }: IRequest): Promise<User> {
+        const {user_id} = request
+        console.log(user_id)
         const userRepository = getCustomRepository(UserRepository)
 
-        const user = await userRepository.findOne({ id })
+        const user = await userRepository.findOne(user_id)
         if (!user) {
             throw new AppError("User not found",400)
         }
