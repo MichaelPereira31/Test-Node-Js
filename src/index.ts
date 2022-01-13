@@ -5,9 +5,14 @@ import './database'
 import { AppError } from "./errors/AppError";
 import { routers } from "./routers";
 const express = require('express');
+const swaggerFile = require("../swagger.json");
+const swaggerUi = require("swagger-ui-express");
 
 const app = express();
 app.use(express.json());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 app.use(routers)
 
 

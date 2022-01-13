@@ -4,9 +4,9 @@ import { RemoveUserService } from "../services/RemoveUserService";
 
 class RemoveUserController{
     async handle(request: Request, response: Response): Promise<Response>{
-        const {id} = request.params
+        
         const userRemove = new RemoveUserService()
-        const user = await userRemove.execute({id})
+        const user = await userRemove.execute()
         return response.json(user)
     }
 }

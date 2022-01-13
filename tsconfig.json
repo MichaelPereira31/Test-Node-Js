@@ -12,6 +12,7 @@
       "experimentalDecorators": true,
       "sourceMap": true,
       "strictPropertyInitialization": false,
-      "typeRoots": ["./src/@types"]
+      "typeRoots": ["./src/@types"],
+      "resolveJsonModule": true
    }
 }

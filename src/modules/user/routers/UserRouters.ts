@@ -18,6 +18,6 @@ userRouter.get('/',ensureAuthenticated, ensureAdmin, listController.handle);
 userRouter.get('/:id',ensureAuthenticated, ensureAdmin, showController.handle);
 userRouter.post('/', createController.handle);
 userRouter.put('/',ensureAuthenticated, updateController.handle);
-userRouter.delete('/:id',ensureAuthenticated,ensureAdmin,removeController.handle);
+userRouter.delete('/',ensureAuthenticated,removeController.handle);
 
 export {userRouter}
